@@ -1,0 +1,5 @@
+3. edit in view books
+4. edit in view member 
+5. profile viewing 
+6. kun book borrow gareko cha tyo matra return garnu paryo 
+

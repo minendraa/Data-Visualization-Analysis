@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add Book</title>
+    <title>Update Book</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body { 
@@ -57,38 +57,35 @@
         .home-button:hover {
             background-color: #2b6cb0;
         }
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
+        }
     </style>
 </head>
 <body>
 <header>
-    <h1>Add a New Book</h1>
+    <h1>Update Book</h1>
 </header>
 <div class="container">
-    {% if message %}
-        <p style="color: green;">{{ message }}</p>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
     {% endif %}
+    
     <form method="POST">
         {% csrf_token %}
-        <label for="title">Book Title</label>
-        <input type="text" name="title" required>
-
-        <label for="author">Author</label>
-        <input type="text" name="author" required>
-
-        <label for="isbn">ISBN</label>
-        <input type="text" name="isbn" required>
         
-        <label for="date_of_publish">Date of Publish</label>
-        <input type="date" name="date_of_publish" required>
-        
-        <label for="stock">Stock</label>
-        <input type="text" name="stock" required>
+        <label for="ISBN">ISBN</label>
+        <input type="text" name="ISBN" id="ISBN" required>
 
-        <label>
-            <input type="checkbox" name="available"> Available
-        </label>
+        <label for="stock">Stock to Add</label>
+        <input type="number" name="stock" id="stock" required min="1">
 
-        <button type="submit">Add Book</button>
+        <button type="submit">Update Book</button>
     </form>
 
     <a href="{% url 'index' %}" class="home-button">← Return Home</a>
