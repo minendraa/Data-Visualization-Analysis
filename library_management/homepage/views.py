@@ -41,16 +41,24 @@ def view_books(request):
 def borrow(request):
     books = Book.objects.all()
     members = Member.objects.all()
-
     if request.method == 'POST':
         # You can add logic to store the borrow action if you have a Borrow model
         selected_book = request.POST.get('book')
         selected_member = request.POST.get('member')
-        message = f"Member ID {selected_member} borrowed Book ID {selected_book}."
+        for book in books:
+            if book.book_name == selected_book:
+                book.stock
+                if book.stock > 0:
+                    book.stock = book.stock-1 
+                    book.save()
+                    messages.success(request, f"Member {selected_member} borrowed Book ID {selected_book}.")
+
+                else:
+                    messages.error(request,f'{selected_book} is out of stock!!') 
+                    break
         return render(request, 'homepage/borrow.html', {
             'books': books,
             'members': members,
-            'message': message
         })
 
     return render(request, 'homepage/borrow.html', {'books': books, 'members': members})
@@ -61,13 +69,15 @@ def addbooks(request):
         ISBN = request.POST.get('isbn')
         date_of_publish=request.POST.get('date_of_publish')
         available = request.POST.get('available') == 'on'  # Checkbox handling
+        stock=request.POST.get('stock')
 
         Book.objects.create(
             book_name=book_name,
             author_name=author_name,
             ISBN=ISBN,
             date_of_publish=date_of_publish,
-            available=available
+            available=available,
+            stock=stock
         )
         messages.success(request,'Book added successfully!')
         return redirect("view_book")
