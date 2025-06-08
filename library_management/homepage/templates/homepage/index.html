@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Library Management System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f2f4f8;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #2d3748;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            padding: 40px;
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            margin-top: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #2d3748;
+        }
+        .section {
+            margin-top: 30px;
+        }
+        .btn {
+            background-color: #3182ce;
+            color: white;
+            padding: 10px 16px;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-right: 10px;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #2b6cb0;
+        }
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            color: #888;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>📚 Library Management System</h1>
+    <p>Welcome to your digital library dashboard</p>
+</header>
+
+<div class="container">
+    <h2>Dashboard</h2>
+
+    <div class="section">
+        <p>Manage your library efficiently — add, borrow, and track books.</p>
+        <a href="{% url 'view_book' %}" class="btn">View Books</a>
+        <a href="{% url 'addbook' %}" class="btn">Add Books</a>
+        <a href="{% url 'addmember' %}" class="btn">Add Member</a>
+        <a href="{% url 'view_members' %}" class="btn">View Member</a>
+        <a href="{% url 'borrow' %}" class="btn">Borrow</a>
+    </div>
+
+    <!-- <div class="section">
+        <h3>Quick Tips</h3>
+        <ul>
+            <li>Click "View Books" to browse the collection.</li>
+            <li>"Add Member" lets you register a new user.</li>
+            <li>"Borrow History" shows all past transactions.</li>
+        </ul>
+    </div>
+</div> -->
+
+<footer>
+    © {{ now|date:"Y" }} Minendra's Library System | Django Project
+</footer>
+
+</body>
+</html>
