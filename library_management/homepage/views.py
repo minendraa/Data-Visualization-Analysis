@@ -4,10 +4,12 @@ from datetime import datetime
 from .models import Book, Member,Returnbook   
 from django.utils import timezone
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.contrib.auth.decorators import login_required
+
 def index(request):
     return render(request, 'homepage/index.html', {'now': datetime.now()})
 
-# Member Registration View
+@login_required
 def add_members(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -27,17 +29,17 @@ def add_members(request):
 
     return render(request, 'homepage/form.html')  # Form to add a member
 
-# View Members
+@login_required
 def view_members(request):
     members = Member.objects.all()
     return render(request, 'homepage/members.html', {'members': members})
 
-# View Books
+@login_required
 def view_books(request):
     books = Book.objects.all()
     return render(request, 'homepage/viewbooks.html', {'books': books})
 
-# Borrow Book
+@login_required
 def borrow(request):
     books = Book.objects.all()
     members = Member.objects.all()
@@ -63,6 +65,7 @@ def borrow(request):
 
     return render(request, 'homepage/borrow.html', {'books': books, 'members': members})
 
+@login_required
 def returnbook(request):
     members = Member.objects.all()
     
@@ -104,6 +107,8 @@ def returnbook(request):
         'borrowed_books': borrowed_books
     })
 
+@login_required
+
 def addbooks(request):
     if request.method == 'POST':
         book_name = request.POST.get('title')
@@ -124,6 +129,8 @@ def addbooks(request):
         messages.success(request,'Book added successfully!')
         return redirect("view_book")
     return render(request, 'homepage/addbooks.html')
+
+@login_required
 
 def updatebook(request):
     if request.method == 'POST':
