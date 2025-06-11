@@ -1,4 +1,5 @@
 import pandas as pd
+
 # Define a dictionary containing employee data
 data1 = {'Name': ['Jai', 'Princi', 'Gaurav', 'Anuj'],
          'Age': [27, 24, 22, 32],
@@ -11,24 +12,37 @@ data2 = {'Name': ['Jai', 'Princi', 'Gaurav', 'Anuj'],
          'Grade': ['A', 'A', 'C', 'B']
         }
 
-df1=pd.DataFrame(data1)
+# Create DataFrames
+df1 = pd.DataFrame(data1)
+df2 = pd.DataFrame(data2)
 
-df2=pd.DataFrame(data2)
+# Extract the 'Grade' and 'Marks' columns from df2
+df3 = df2["Grade"]
+df4 = df2["Marks"]
 
-df3=df2["Grade"]
-df4=df2["Marks"]
+# Combine the DataFrames along columns
+frames = [df1, df3, df4]
+res = pd.concat(frames, axis=1)
 
-frames=[df1,df3,df4]
-res=pd.concat(frames,axis=1)
-res.index=range(1,len(res)+1)
-#print(res)
+# Set the index to start from 1 instead of 0
+res.index = range(1, len(res) + 1)
 
-sorted_df=res.sort_values(by="Age",ascending=False)
-#print(sorted_df)
+# Modify 'Age' by adding 1 to each value
+res['Age'] = res['Age'].apply(lambda x: x + 1)
 
-res['Age']=res['Age'].apply(lambda x:x+1)
-print(res)
+# Sorting by 'Age' in descending order
+sorted_df = res.sort_values(by="Age", ascending=False)
 
+# Display the modified DataFrame after sorting
+print("Sorted DataFrame by Age:")
+print(sorted_df)
 
-grouped_df=res.groupby('Name').mean('Age')
+# Group by 'Grade' and calculate the mean for numeric columns (like 'Age' and 'Marks')
+grouped_df = res.groupby('Name')['Age'].mean()
+
+# Display the grouped DataFrame
+print("\nGrouped DataFrame by Grade:")
 print(grouped_df)
+
+sorted_by_name = grouped_df.sort_index(ascending=False)
+print(sorted_by_name)
