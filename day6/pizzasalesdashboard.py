@@ -9,11 +9,9 @@ df = pd.read_csv('pizza_sales.csv')
 
 print(df.head())
 
-# Fix 1: Correct date parsing (using dayfirst=True for dates like 1/1/2015)
 df['order_date'] = pd.to_datetime(df['order_date'], dayfirst=True, errors='coerce')
 df['order_time'] = pd.to_datetime(df['order_time'], format='%H:%M:%S', errors='coerce')
 
-# Fix 2: Handle any potential NaT values from parsing
 df = df.dropna(subset=['order_date', 'order_time'])
 
 df['day_of_week'] = df['order_date'].dt.day_name()
@@ -123,3 +121,7 @@ with col2:
     st.metric("Filtered Total Orders", f"{filtered_total_orders:,}")
 with col3:
     st.metric("Filtered Average Order Value", f"${filtered_avg_order_value:,.2f}")
+
+
+
+

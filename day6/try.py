@@ -29,7 +29,7 @@ total_orders = df['order_id'].nunique()
 avg_order = total_sales / total_orders if total_orders > 0 else 0
 
 # Dashboard layout
-st.title("🍕 Pizza Sales Dashboard")
+st.title("🍕 Pizza Sales Dashboard 😋")
 
 # Metrics columns
 col1, col2, col3 = st.columns(3)
@@ -51,6 +51,7 @@ plt.ylabel("Total Sales")
 plt.xticks(rotation=45)
 st.pyplot(plt.gcf())
 plt.clf()
+
 
 # Monthly Orders Plot
 orders_by_month = df.groupby('order_month')['order_id'].nunique().reset_index()
